@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Map from './components/Map'
+import styled from 'styled-components'
+import Slider from './components/Slider'
+import FlightList from './components/FlightList'
+import { FlightProvider } from './context/FlightContext'
+import FlightRoute from './components/FlightRoute'
+import PlanePosition from './components/PlanePosition'
+
+const FullScreen = styled.div`
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+`
+
+const MapAndSlider = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <FullScreen>
+      <FlightProvider>
+        <FlightList />
+        <MapAndSlider>
+          <Map>
+            <FlightRoute />
+            <PlanePosition />
+          </Map>
+          <Slider />
+        </MapAndSlider>
+      </FlightProvider>
+    </FullScreen>
+  )
 }
 
-export default App;
+export default App

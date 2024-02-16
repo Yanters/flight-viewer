@@ -1,8 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { MockAPI } from '../services/mockAPI'
 import { Flight } from '../data/flightsData'
-import { FlightContext } from '../context/FlightContext'
+import { useAppDispatch } from '../store/store'
+import { setFlight } from '../store/features/flightSlice'
 
 const FlightListContainer = styled.div`
   height: 100vh;
@@ -66,7 +67,7 @@ const FlightArrival = styled.div`
 const FlightList = () => {
   const [flights, setFlights] = useState<Flight[] | undefined>()
 
-  const { setFlight } = useContext(FlightContext)
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     async function fetchFlights() {
@@ -81,7 +82,10 @@ const FlightList = () => {
     <FlightListContainer>
       <FlightListItems>
         {flights?.map((flight) => (
-          <FlightListItem key={flight.id} onClick={() => setFlight(flight)}>
+          <FlightListItem
+            key={flight.id}
+            onClick={() => dispatch(setFlight(flight))}
+          >
             <FlightHeader>
               <FlightName>{flight.name}</FlightName>
               <FlightId>#{flight.id}</FlightId>

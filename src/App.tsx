@@ -1,10 +1,11 @@
 import Map from './components/Map'
 import styled from 'styled-components'
-import Slider from './components/Slider'
 import FlightList from './components/FlightList'
-import { FlightProvider } from './context/FlightContext'
 import FlightRoute from './components/FlightRoute'
 import PlanePosition from './components/PlanePosition'
+import { Provider } from 'react-redux'
+import { store } from './store/store'
+import SliderView from './components/SliderView'
 
 const FullScreen = styled.div`
   height: 100vh;
@@ -22,16 +23,16 @@ const MapAndSlider = styled.div`
 function App() {
   return (
     <FullScreen>
-      <FlightProvider>
+      <Provider store={store}>
         <FlightList />
         <MapAndSlider>
           <Map>
             <FlightRoute />
             <PlanePosition />
           </Map>
-          <Slider />
+          <SliderView />
         </MapAndSlider>
-      </FlightProvider>
+      </Provider>
     </FullScreen>
   )
 }

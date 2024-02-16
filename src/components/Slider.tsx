@@ -1,22 +1,7 @@
-import React, { useContext } from 'react'
+import React from 'react'
+import { useAppDispatch, useAppSelector } from '../store/store'
+import { setTimestamp } from '../store/features/flightSlice'
 import styled from 'styled-components'
-import { FlightContext } from '../context/FlightContext'
-
-const SliderContainer = styled.div`
-  height: 160px;
-  width: 100%;
-  border: 1px solid blue;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-`
-
-const Label = styled.label`
-  font-size: 24px;
-  color: #ffffff;
-`
 
 const SliderElement = styled.input`
   width: 80%;
@@ -47,7 +32,8 @@ const SliderElement = styled.input`
 `
 
 const Slider = () => {
-  const { flight, timestamp, setTimestamp } = useContext(FlightContext)
+  const { flight, timestamp } = useAppSelector((state) => state.flight)
+  const dispatch = useAppDispatch()
 
   if (!flight) return null
 
@@ -59,21 +45,18 @@ const Slider = () => {
   ) => {
     const index = parseInt(e.target.value, 10)
     const newTimestamp = timestamps[index]
-    setTimestamp(newTimestamp)
+    dispatch(setTimestamp(newTimestamp))
   }
   return (
-    <SliderContainer>
-      <Label htmlFor='slider'>Plane timestamp</Label>
-      <SliderElement
-        id='slider'
-        type='range'
-        min={0}
-        step={1}
-        max={timestamps.length - 1}
-        value={indexForTimestamp >= 0 ? indexForTimestamp : 0}
-        onChange={handleSliderChange}
-      />
-    </SliderContainer>
+    <SliderElement
+      id='slider'
+      type='range'
+      min={0}
+      step={1}
+      max={timestamps.length - 1}
+      value={indexForTimestamp >= 0 ? indexForTimestamp : 0}
+      onChange={handleSliderChange}
+    />
   )
 }
 

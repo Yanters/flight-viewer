@@ -1,10 +1,9 @@
-import { useContext } from 'react'
-import { FlightContext } from '../context/FlightContext'
 import Route from './Route'
 import { getFlightPoints } from '../utils/getFlightPoints'
+import { useAppSelector } from '../store/store'
 
 const FlightRoute = () => {
-  const { flight } = useContext(FlightContext)
+  const flight = useAppSelector((state) => state.flight.flight)
 
   if (!flight) return null
 

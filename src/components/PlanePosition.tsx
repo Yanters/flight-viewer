@@ -1,10 +1,10 @@
-import { useContext } from 'react'
 import Plane from './Plane'
 import { getPlanePoint } from '../utils/getPlanePoint'
-import { FlightContext } from '../context/FlightContext'
+import { useAppSelector } from '../store/store'
 
 const PlanePosition = () => {
-  const { flight, timestamp } = useContext(FlightContext)
+  const { flight, timestamp } = useAppSelector((state) => state.flight)
+
   if (!flight) return null
 
   return <Plane point={getPlanePoint(flight, timestamp ?? 0)} />

@@ -35,9 +35,7 @@ const Slider = () => {
   const { flight, timestamp } = useAppSelector((state) => state.flight)
   const dispatch = useAppDispatch()
 
-  if (!flight) return null
-
-  const timestamps = flight.route.map((point) => point.timestamp)
+  const timestamps = flight!.route.map((point) => point.timestamp)
   const indexForTimestamp = timestamps.indexOf(timestamp)
 
   const handleSliderChange: React.ChangeEventHandler<HTMLInputElement> = (

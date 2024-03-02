@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import Slider from './Slider'
+import { useAppSelector } from '../store/store'
 
 const SliderContainer = styled.div`
   height: 160px;
@@ -17,7 +18,12 @@ const Label = styled.label`
 `
 
 const SliderView = () => {
-  console.log('Rendering SliderView')
+  const { flight } = useAppSelector((state) => state.flight)
+
+  if (!flight) {
+    return null
+  }
+
   return (
     <SliderContainer>
       <Label htmlFor='slider'>Plane timestamp</Label>
